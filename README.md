@@ -15,7 +15,7 @@
 - [GitHub Guides](https://guides.github.com/)
 
 * [Git Visual Guide](http://marklodato.github.io/visual-git-guide/index-en.html). nice visual representation of what is happening and what commands are used 
-
+* [Visualizing Git Concepts with D3](https://onlywei.github.io/explain-git-with-d3/#commit)
 * [Git for the lazy](https://wiki.spheredev.org/index.php/Git_for_the_lazy). A wiki  with a bunch of good notes.
 * [Intro to github](http://gun.io/blog/how-to-github-fork-branch-and-pull-request/) with funny visuals
 * A very simple tutorial to start with.
