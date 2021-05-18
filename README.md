@@ -1,4 +1,9 @@
-# Git-tutorials
+# Learn Git
+
+## Usefull ressources
+
+1. [Atlassian Bitbucket](https://www.atlassian.com/git/tutorials)
+2. [Articles & Explanations](https://www.atlassian.com/git/tutorials/using-branches/git-checkout#:~:text=The%20git%20checkout%20command%20lets,new%20commits%20on%20that%20branch.)
 
 ## A bunch of good git tutorials
 
