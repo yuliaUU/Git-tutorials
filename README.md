@@ -1,7 +1,5 @@
 # Learn Git
 
-## Lecture Notes
-1. [DSSG Workshop on Git](https://htmlpreview.github.io/?https://github.com/yuliaUU/Git-tutorials/blob/main/Version%20Control%20with%20Git.html)
 
 ## Usefull ressources
 
