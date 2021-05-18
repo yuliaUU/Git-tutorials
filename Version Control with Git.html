@@ -1,0 +1,1206 @@
+<!DOCTYPE html>
+<!-- saved from url=(0065)https://asda.stat.ubc.ca/Workshops/2021-05_DSSG/git_workshop.html -->
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+
+<meta name="generator" content="pandoc">
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE">
+
+
+<meta name="author" content="Biljana Jonoska Stojkova, Kim Dill-McFarland, and Nikolas Krstic">
+
+
+<title>Version Control with Git</title>
+
+<script src="./Version Control with Git_files/jquery.min.js.download"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link href="./Version Control with Git_files/flatly.min.css" rel="stylesheet">
+<script src="./Version Control with Git_files/bootstrap.min.js.download"></script>
+<script src="./Version Control with Git_files/html5shiv.min.js.download"></script>
+<script src="./Version Control with Git_files/respond.min.js.download"></script>
+<script src="./Version Control with Git_files/jquery-ui.min.js.download"></script>
+<link href="./Version Control with Git_files/jquery.tocify.css" rel="stylesheet">
+<script src="./Version Control with Git_files/jquery.tocify.js.download"></script>
+<script src="./Version Control with Git_files/tabsets.js.download"></script>
+<link href="./Version Control with Git_files/default.css" rel="stylesheet">
+<script src="./Version Control with Git_files/highlight.js.download"></script>
+
+<style type="text/css">code{white-space: pre;}</style>
+<style type="text/css">
+  pre:not([class]) {
+    background-color: white;
+  }
+</style>
+<script type="text/javascript">
+if (window.hljs) {
+  hljs.configure({languages: []});
+  hljs.initHighlightingOnLoad();
+  if (document.readyState && document.readyState === "complete") {
+    window.setTimeout(function() { hljs.initHighlighting(); }, 0);
+  }
+}
+</script>
+
+
+
+<style type="text/css">
+h1 {
+  font-size: 34px;
+}
+h1.title {
+  font-size: 38px;
+}
+h2 {
+  font-size: 30px;
+}
+h3 {
+  font-size: 24px;
+}
+h4 {
+  font-size: 18px;
+}
+h5 {
+  font-size: 16px;
+}
+h6 {
+  font-size: 12px;
+}
+.table th:not([align]) {
+  text-align: left;
+}
+</style>
+
+<link rel="stylesheet" href="./Version Control with Git_files/styles.css" type="text/css">
+
+
+
+<style type="text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+code {
+  color: inherit;
+  background-color: rgba(0, 0, 0, 0.04);
+}
+img {
+  max-width:100%;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+.html-widget {
+  margin-bottom: 20px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+summary {
+  display: list-item;
+}
+</style>
+
+
+<style type="text/css">
+/* padding for bootstrap navbar */
+body {
+  padding-top: 60px;
+  padding-bottom: 40px;
+}
+/* offset scroll position for anchor links (for fixed navbar)  */
+.section h1 {
+  padding-top: 65px;
+  margin-top: -65px;
+}
+.section h2 {
+  padding-top: 65px;
+  margin-top: -65px;
+}
+.section h3 {
+  padding-top: 65px;
+  margin-top: -65px;
+}
+.section h4 {
+  padding-top: 65px;
+  margin-top: -65px;
+}
+.section h5 {
+  padding-top: 65px;
+  margin-top: -65px;
+}
+.section h6 {
+  padding-top: 65px;
+  margin-top: -65px;
+}
+.dropdown-submenu {
+  position: relative;
+}
+.dropdown-submenu>.dropdown-menu {
+  top: 0;
+  left: 100%;
+  margin-top: -6px;
+  margin-left: -1px;
+  border-radius: 0 6px 6px 6px;
+}
+.dropdown-submenu:hover>.dropdown-menu {
+  display: block;
+}
+.dropdown-submenu>a:after {
+  display: block;
+  content: " ";
+  float: right;
+  width: 0;
+  height: 0;
+  border-color: transparent;
+  border-style: solid;
+  border-width: 5px 0 5px 5px;
+  border-left-color: #cccccc;
+  margin-top: 5px;
+  margin-right: -10px;
+}
+.dropdown-submenu:hover>a:after {
+  border-left-color: #ffffff;
+}
+.dropdown-submenu.pull-left {
+  float: none;
+}
+.dropdown-submenu.pull-left>.dropdown-menu {
+  left: -100%;
+  margin-left: 10px;
+  border-radius: 6px 0 6px 6px;
+}
+</style>
+
+<script>
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark it active
+  menuAnchor.parent().addClass('active');
+
+  // if it's got a parent navbar menu mark it active as well
+  menuAnchor.closest('li.dropdown').addClass('active');
+});
+</script>
+
+<!-- tabsets -->
+
+<style type="text/css">
+.tabset-dropdown > .nav-tabs {
+  display: inline-table;
+  max-height: 500px;
+  min-height: 44px;
+  overflow-y: auto;
+  background: white;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs > li.active:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
+  content: "&#xe258;";
+  border: none;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs > li.active {
+  display: block;
+}
+
+.tabset-dropdown > .nav-tabs > li > a,
+.tabset-dropdown > .nav-tabs > li > a:focus,
+.tabset-dropdown > .nav-tabs > li > a:hover {
+  border: none;
+  display: inline-block;
+  border-radius: 4px;
+  background-color: transparent;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li {
+  display: block;
+  float: none;
+}
+
+.tabset-dropdown > .nav-tabs > li {
+  display: none;
+}
+</style>
+
+<!-- code folding -->
+
+
+
+<style type="text/css">
+
+#TOC {
+  margin: 25px 0px 20px 0px;
+}
+@media (max-width: 768px) {
+#TOC {
+  position: relative;
+  width: 100%;
+}
+}
+
+@media print {
+.toc-content {
+  /* see https://github.com/w3c/csswg-drafts/issues/4434 */
+  float: right;
+}
+}
+
+.toc-content {
+  padding-left: 30px;
+  padding-right: 40px;
+}
+
+div.main-container {
+  max-width: 1200px;
+}
+
+div.tocify {
+  width: 20%;
+  max-width: 260px;
+  max-height: 85%;
+}
+
+@media (min-width: 768px) and (max-width: 991px) {
+  div.tocify {
+    width: 25%;
+  }
+}
+
+@media (max-width: 767px) {
+  div.tocify {
+    width: 100%;
+    max-width: none;
+  }
+}
+
+.tocify ul, .tocify li {
+  line-height: 20px;
+}
+
+.tocify-subheader .tocify-item {
+  font-size: 0.90em;
+}
+
+.tocify .list-group-item {
+  border-radius: 0px;
+}
+
+.tocify-subheader {
+  display: inline;
+}
+.tocify-subheader .tocify-item {
+  font-size: 0.95em;
+}
+
+</style>
+
+
+
+<script type="text/javascript" src="./Version Control with Git_files/MathJax.js.download"></script><style type="text/css">.MathJax_Hover_Frame {border-radius: .25em; -webkit-border-radius: .25em; -moz-border-radius: .25em; -khtml-border-radius: .25em; box-shadow: 0px 0px 15px #83A; -webkit-box-shadow: 0px 0px 15px #83A; -moz-box-shadow: 0px 0px 15px #83A; -khtml-box-shadow: 0px 0px 15px #83A; border: 1px solid #A6D ! important; display: inline-block; position: absolute}
+.MathJax_Menu_Button .MathJax_Hover_Arrow {position: absolute; cursor: pointer; display: inline-block; border: 2px solid #AAA; border-radius: 4px; -webkit-border-radius: 4px; -moz-border-radius: 4px; -khtml-border-radius: 4px; font-family: 'Courier New',Courier; font-size: 9px; color: #F0F0F0}
+.MathJax_Menu_Button .MathJax_Hover_Arrow span {display: block; background-color: #AAA; border: 1px solid; border-radius: 3px; line-height: 0; padding: 4px}
+.MathJax_Hover_Arrow:hover {color: white!important; border: 2px solid #CCC!important}
+.MathJax_Hover_Arrow:hover span {background-color: #CCC!important}
+</style><style type="text/css">#MathJax_About {position: fixed; left: 50%; width: auto; text-align: center; border: 3px outset; padding: 1em 2em; background-color: #DDDDDD; color: black; cursor: default; font-family: message-box; font-size: 120%; font-style: normal; text-indent: 0; text-transform: none; line-height: normal; letter-spacing: normal; word-spacing: normal; word-wrap: normal; white-space: nowrap; float: none; z-index: 201; border-radius: 15px; -webkit-border-radius: 15px; -moz-border-radius: 15px; -khtml-border-radius: 15px; box-shadow: 0px 10px 20px #808080; -webkit-box-shadow: 0px 10px 20px #808080; -moz-box-shadow: 0px 10px 20px #808080; -khtml-box-shadow: 0px 10px 20px #808080; filter: progid:DXImageTransform.Microsoft.dropshadow(OffX=2, OffY=2, Color='gray', Positive='true')}
+#MathJax_About.MathJax_MousePost {outline: none}
+.MathJax_Menu {position: absolute; background-color: white; color: black; width: auto; padding: 2px; border: 1px solid #CCCCCC; margin: 0; cursor: default; font: menu; text-align: left; text-indent: 0; text-transform: none; line-height: normal; letter-spacing: normal; word-spacing: normal; word-wrap: normal; white-space: nowrap; float: none; z-index: 201; box-shadow: 0px 10px 20px #808080; -webkit-box-shadow: 0px 10px 20px #808080; -moz-box-shadow: 0px 10px 20px #808080; -khtml-box-shadow: 0px 10px 20px #808080; filter: progid:DXImageTransform.Microsoft.dropshadow(OffX=2, OffY=2, Color='gray', Positive='true')}
+.MathJax_MenuItem {padding: 2px 2em; background: transparent}
+.MathJax_MenuArrow {position: absolute; right: .5em; padding-top: .25em; color: #666666; font-size: .75em}
+.MathJax_MenuActive .MathJax_MenuArrow {color: white}
+.MathJax_MenuArrow.RTL {left: .5em; right: auto}
+.MathJax_MenuCheck {position: absolute; left: .7em}
+.MathJax_MenuCheck.RTL {right: .7em; left: auto}
+.MathJax_MenuRadioCheck {position: absolute; left: 1em}
+.MathJax_MenuRadioCheck.RTL {right: 1em; left: auto}
+.MathJax_MenuLabel {padding: 2px 2em 4px 1.33em; font-style: italic}
+.MathJax_MenuRule {border-top: 1px solid #CCCCCC; margin: 4px 1px 0px}
+.MathJax_MenuDisabled {color: GrayText}
+.MathJax_MenuActive {background-color: Highlight; color: HighlightText}
+.MathJax_MenuDisabled:focus, .MathJax_MenuLabel:focus {background-color: #E8E8E8}
+.MathJax_ContextMenu:focus {outline: none}
+.MathJax_ContextMenu .MathJax_MenuItem:focus {outline: none}
+#MathJax_AboutClose {top: .2em; right: .2em}
+.MathJax_Menu .MathJax_MenuClose {top: -10px; left: -10px}
+.MathJax_MenuClose {position: absolute; cursor: pointer; display: inline-block; border: 2px solid #AAA; border-radius: 18px; -webkit-border-radius: 18px; -moz-border-radius: 18px; -khtml-border-radius: 18px; font-family: 'Courier New',Courier; font-size: 24px; color: #F0F0F0}
+.MathJax_MenuClose span {display: block; background-color: #AAA; border: 1.5px solid; border-radius: 18px; -webkit-border-radius: 18px; -moz-border-radius: 18px; -khtml-border-radius: 18px; line-height: 0; padding: 8px 0 6px}
+.MathJax_MenuClose:hover {color: white!important; border: 2px solid #CCC!important}
+.MathJax_MenuClose:hover span {background-color: #CCC!important}
+.MathJax_MenuClose:hover:focus {outline: none}
+</style><style type="text/css">.MathJax_Preview .MJXf-math {color: inherit!important}
+</style><style type="text/css">.MJX_Assistive_MathML {position: absolute!important; top: 0; left: 0; clip: rect(1px, 1px, 1px, 1px); padding: 1px 0 0 0!important; border: 0!important; height: 1px!important; width: 1px!important; overflow: hidden!important; display: block!important; -webkit-touch-callout: none; -webkit-user-select: none; -khtml-user-select: none; -moz-user-select: none; -ms-user-select: none; user-select: none}
+.MJX_Assistive_MathML.MJX_Assistive_MathML_Block {width: 100%!important}
+</style><style type="text/css">#MathJax_Zoom {position: absolute; background-color: #F0F0F0; overflow: auto; display: block; z-index: 301; padding: .5em; border: 1px solid black; margin: 0; font-weight: normal; font-style: normal; text-align: left; text-indent: 0; text-transform: none; line-height: normal; letter-spacing: normal; word-spacing: normal; word-wrap: normal; white-space: nowrap; float: none; -webkit-box-sizing: content-box; -moz-box-sizing: content-box; box-sizing: content-box; box-shadow: 5px 5px 15px #AAAAAA; -webkit-box-shadow: 5px 5px 15px #AAAAAA; -moz-box-shadow: 5px 5px 15px #AAAAAA; -khtml-box-shadow: 5px 5px 15px #AAAAAA; filter: progid:DXImageTransform.Microsoft.dropshadow(OffX=2, OffY=2, Color='gray', Positive='true')}
+#MathJax_ZoomOverlay {position: absolute; left: 0; top: 0; z-index: 300; display: inline-block; width: 100%; height: 100%; border: 0; padding: 0; margin: 0; background-color: white; opacity: 0; filter: alpha(opacity=0)}
+#MathJax_ZoomFrame {position: relative; display: inline-block; height: 0; width: 0}
+#MathJax_ZoomEventTrap {position: absolute; left: 0; top: 0; z-index: 302; display: inline-block; border: 0; padding: 0; margin: 0; background-color: white; opacity: 0; filter: alpha(opacity=0)}
+</style><style type="text/css">.MathJax_Preview {color: #888}
+#MathJax_Message {position: fixed; left: 1em; bottom: 1.5em; background-color: #E6E6E6; border: 1px solid #959595; margin: 0px; padding: 2px 8px; z-index: 102; color: black; font-size: 80%; width: auto; white-space: nowrap}
+#MathJax_MSIE_Frame {position: absolute; top: 0; left: 0; width: 0px; z-index: 101; border: 0px; margin: 0px; padding: 0px}
+.MathJax_Error {color: #CC0000; font-style: italic}
+</style><style type="text/css">.MJXp-script {font-size: .8em}
+.MJXp-right {-webkit-transform-origin: right; -moz-transform-origin: right; -ms-transform-origin: right; -o-transform-origin: right; transform-origin: right}
+.MJXp-bold {font-weight: bold}
+.MJXp-italic {font-style: italic}
+.MJXp-scr {font-family: MathJax_Script,'Times New Roman',Times,STIXGeneral,serif}
+.MJXp-frak {font-family: MathJax_Fraktur,'Times New Roman',Times,STIXGeneral,serif}
+.MJXp-sf {font-family: MathJax_SansSerif,'Times New Roman',Times,STIXGeneral,serif}
+.MJXp-cal {font-family: MathJax_Caligraphic,'Times New Roman',Times,STIXGeneral,serif}
+.MJXp-mono {font-family: MathJax_Typewriter,'Times New Roman',Times,STIXGeneral,serif}
+.MJXp-largeop {font-size: 150%}
+.MJXp-largeop.MJXp-int {vertical-align: -.2em}
+.MJXp-math {display: inline-block; line-height: 1.2; text-indent: 0; font-family: 'Times New Roman',Times,STIXGeneral,serif; white-space: nowrap; border-collapse: collapse}
+.MJXp-display {display: block; text-align: center; margin: 1em 0}
+.MJXp-math span {display: inline-block}
+.MJXp-box {display: block!important; text-align: center}
+.MJXp-box:after {content: " "}
+.MJXp-rule {display: block!important; margin-top: .1em}
+.MJXp-char {display: block!important}
+.MJXp-mo {margin: 0 .15em}
+.MJXp-mfrac {margin: 0 .125em; vertical-align: .25em}
+.MJXp-denom {display: inline-table!important; width: 100%}
+.MJXp-denom > * {display: table-row!important}
+.MJXp-surd {vertical-align: top}
+.MJXp-surd > * {display: block!important}
+.MJXp-script-box > *  {display: table!important; height: 50%}
+.MJXp-script-box > * > * {display: table-cell!important; vertical-align: top}
+.MJXp-script-box > *:last-child > * {vertical-align: bottom}
+.MJXp-script-box > * > * > * {display: block!important}
+.MJXp-mphantom {visibility: hidden}
+.MJXp-munderover {display: inline-table!important}
+.MJXp-over {display: inline-block!important; text-align: center}
+.MJXp-over > * {display: block!important}
+.MJXp-munderover > * {display: table-row!important}
+.MJXp-mtable {vertical-align: .25em; margin: 0 .125em}
+.MJXp-mtable > * {display: inline-table!important; vertical-align: middle}
+.MJXp-mtr {display: table-row!important}
+.MJXp-mtd {display: table-cell!important; text-align: center; padding: .5em 0 0 .5em}
+.MJXp-mtr > .MJXp-mtd:first-child {padding-left: 0}
+.MJXp-mtr:first-child > .MJXp-mtd {padding-top: 0}
+.MJXp-mlabeledtr {display: table-row!important}
+.MJXp-mlabeledtr > .MJXp-mtd:first-child {padding-left: 0}
+.MJXp-mlabeledtr:first-child > .MJXp-mtd {padding-top: 0}
+.MJXp-merror {background-color: #FFFF88; color: #CC0000; border: 1px solid #CC0000; padding: 1px 3px; font-style: normal; font-size: 90%}
+.MJXp-scale0 {-webkit-transform: scaleX(.0); -moz-transform: scaleX(.0); -ms-transform: scaleX(.0); -o-transform: scaleX(.0); transform: scaleX(.0)}
+.MJXp-scale1 {-webkit-transform: scaleX(.1); -moz-transform: scaleX(.1); -ms-transform: scaleX(.1); -o-transform: scaleX(.1); transform: scaleX(.1)}
+.MJXp-scale2 {-webkit-transform: scaleX(.2); -moz-transform: scaleX(.2); -ms-transform: scaleX(.2); -o-transform: scaleX(.2); transform: scaleX(.2)}
+.MJXp-scale3 {-webkit-transform: scaleX(.3); -moz-transform: scaleX(.3); -ms-transform: scaleX(.3); -o-transform: scaleX(.3); transform: scaleX(.3)}
+.MJXp-scale4 {-webkit-transform: scaleX(.4); -moz-transform: scaleX(.4); -ms-transform: scaleX(.4); -o-transform: scaleX(.4); transform: scaleX(.4)}
+.MJXp-scale5 {-webkit-transform: scaleX(.5); -moz-transform: scaleX(.5); -ms-transform: scaleX(.5); -o-transform: scaleX(.5); transform: scaleX(.5)}
+.MJXp-scale6 {-webkit-transform: scaleX(.6); -moz-transform: scaleX(.6); -ms-transform: scaleX(.6); -o-transform: scaleX(.6); transform: scaleX(.6)}
+.MJXp-scale7 {-webkit-transform: scaleX(.7); -moz-transform: scaleX(.7); -ms-transform: scaleX(.7); -o-transform: scaleX(.7); transform: scaleX(.7)}
+.MJXp-scale8 {-webkit-transform: scaleX(.8); -moz-transform: scaleX(.8); -ms-transform: scaleX(.8); -o-transform: scaleX(.8); transform: scaleX(.8)}
+.MJXp-scale9 {-webkit-transform: scaleX(.9); -moz-transform: scaleX(.9); -ms-transform: scaleX(.9); -o-transform: scaleX(.9); transform: scaleX(.9)}
+.MathJax_PHTML .noError {vertical-align: ; font-size: 90%; text-align: left; color: black; padding: 1px 3px; border: 1px solid}
+</style></head>
+
+<body data-new-gr-c-s-check-loaded="14.1011.0" data-gr-ext-installed=""><div id="MathJax_Message" style="display: none;"></div>
+
+
+<div class="container-fluid main-container">
+
+
+<!-- setup 3col/9col grid for toc_float and main content  -->
+<div class="row-fluid">
+<div class="col-xs-12 col-sm-4 col-md-3">
+<div id="TOC" class="tocify">
+<ul id="tocify-header1" class="tocify-header list-group"><li class="tocify-item list-group-item active" data-unique="do_you_have_all_pre-requisites" style="cursor: pointer;">Do you have all pre-requisites?</li></ul><ul id="tocify-header2" class="tocify-header list-group"><li class="tocify-item list-group-item" data-unique="resources_on_git">Resources on git</li></ul><ul id="tocify-header3" class="tocify-header list-group"><li class="tocify-item list-group-item" data-unique="learning_goals">Learning goals</li></ul><ul id="tocify-header4" class="tocify-header list-group"><li class="tocify-item list-group-item" data-unique="git">Git</li><ul class="tocify-subheader list-group" data-tag="2"><li class="tocify-item list-group-item" data-unique="how_to_track_changes_to_your_files">How to track changes to your files?</li><li class="tocify-item list-group-item" data-unique="what_is_version_control">What is version control?</li><ul class="tocify-subheader list-group" data-tag="3"><li class="tocify-item list-group-item" data-unique="manual_version_control">Manual version control</li><li class="tocify-item list-group-item" data-unique="automated_version_control_via_git">Automated version control via Git</li></ul><li class="tocify-item list-group-item" data-unique="why_use_git_and_not_fill_in_the_blank">Why use Git and not <em>fill in the blank</em>?</li><li class="tocify-item list-group-item" data-unique="git_on_the_local_computer">Git on the local computer</li><ul class="tocify-subheader list-group" data-tag="3"><li class="tocify-item list-group-item" data-unique="initialize_a_repo_(git_init)">Initialize a repo (<code>git init</code>)</li><li class="tocify-item list-group-item" data-unique="add_files_(git_add)">Add files (<code>git add</code>)</li><li class="tocify-item list-group-item" data-unique="git_staging_area_(index)">Git staging area (index)</li><li class="tocify-item list-group-item" data-unique="commit_changes_(git_commit)">Commit changes (<code>git commit</code>)</li><li class="tocify-item list-group-item" data-unique="exercise:_git_add_and_commit">Exercise: Git add and commit</li></ul><li class="tocify-item list-group-item" data-unique="compare_versions_(git_status_and_diff)">Compare versions (<code>git status</code> and <code>diff</code>)</li><li class="tocify-item list-group-item" data-unique="past_commits_(git_log_and_git_show)">Past commits (<code>git log</code> and <code>git show</code>)</li></ul></ul><ul id="tocify-header5" class="tocify-header list-group"><li class="tocify-item list-group-item" data-unique="upload_the_local_repo_to_a_web_repo_on_gitlab">Upload the local repo to a web repo on GitLab</li><ul class="tocify-subheader list-group" data-tag="2"><li class="tocify-item list-group-item" data-unique="gitlab_via_command_line">GitLab via command line</li><ul class="tocify-subheader list-group" data-tag="3"><li class="tocify-item list-group-item" data-unique="make_an_online_repo">Make an online repo</li><li class="tocify-item list-group-item" data-unique="configure_your_computer_(git_config)">Configure your computer (<code>git config</code>)</li><li class="tocify-item list-group-item" data-unique="link_local_and_online_repo_(git_remote)">Link local and online repo (<code>git remote</code>)</li><li class="tocify-item list-group-item" data-unique="update_an_online_repo_(git_push)">Update an online repo (<code>git push</code>)</li></ul></ul></ul><ul id="tocify-header6" class="tocify-header list-group"><li class="tocify-item list-group-item" data-unique="gitlab_gui">GitLab GUI</li></ul><ul id="tocify-header7" class="tocify-header list-group"><li class="tocify-item list-group-item" data-unique="git_in_rstudio">Git in RStudio</li></ul><ul id="tocify-header8" class="tocify-header list-group"><li class="tocify-item list-group-item" data-unique="branches_(git_checkout_-b)">Branches (<code>git checkout -b</code>)</li></ul><ul id="tocify-header9" class="tocify-header list-group"><li class="tocify-item list-group-item" data-unique="merging_(git_merge)">Merging (<code>git merge</code>)</li><ul class="tocify-subheader list-group" data-tag="2"><li class="tocify-item list-group-item" data-unique="merging_conflicts">Merging conflicts</li><ul class="tocify-subheader list-group" data-tag="3"><li class="tocify-item list-group-item" data-unique="exercise:_branches_and_conflicts">Exercise: branches and conflicts.</li></ul></ul></ul><ul id="tocify-header10" class="tocify-header list-group"><li class="tocify-item list-group-item" data-unique="undoing_changes_(git_revert)">Undoing changes (<code>git revert</code>)</li></ul><ul id="tocify-header11" class="tocify-header list-group"><li class="tocify-item list-group-item" data-unique="collaborate_with_gitlab">Collaborate with GitLab</li><ul class="tocify-subheader list-group" data-tag="2"><li class="tocify-item list-group-item" data-unique="copy_an_online_repo_(git_clone)">Copy an online repo (<code>git clone</code>)</li><li class="tocify-item list-group-item" data-unique="update_from_the_online_repo_(git_fetch_and_pull)">Update from the online repo (<code>git fetch</code> and <code>pull</code>)</li><ul class="tocify-subheader list-group" data-tag="3"><li class="tocify-item list-group-item" data-unique="exercise:_multiple_repo_users">Exercise: multiple repo users</li></ul><li class="tocify-item list-group-item" data-unique="collaborate_on_a_project_through_branching">Collaborate on a project through branching</li><ul class="tocify-subheader list-group" data-tag="3"><li class="tocify-item list-group-item" data-unique="exercise:">Exercise:</li></ul><li class="tocify-item list-group-item" data-unique="collaborate_on_a_project_through_forking">Collaborate on a project through forking</li><ul class="tocify-subheader list-group" data-tag="3"><li class="tocify-item list-group-item" data-unique="exercise:38">Exercise:</li></ul><li class="tocify-item list-group-item" data-unique="more_on_forking">More on forking</li><ul class="tocify-subheader list-group" data-tag="3"><li class="tocify-item list-group-item" data-unique="checking_out_and_testing_pull_requests">Checking Out and Testing Pull Requests</li><li class="tocify-item list-group-item" data-unique="keeping_the_fork_up_to_date">Keeping the Fork Up to Date</li></ul></ul></ul></div>
+</div>
+
+<div class="toc-content col-xs-12 col-sm-8 col-md-9">
+
+
+
+<nav class="navbar navbar-default navbar-fixed-top">
+    <div class="container">
+        <div class="navbar-header">
+            <div id="ubc-wordmark" onclick="window.location.assign(&#39;https://asda.stat.ubc.ca/&#39;)">
+                <div class="ubc-name">The University of British Columbia</div>
+                <div>Applied Statistics and Data Science Group</div>
+            </div>
+        </div>
+    </div>
+</nav>
+
+<div class="fluid-row" id="header">
+
+
+
+<h1 class="title toc-ignore">Version Control with Git</h1>
+<h4 class="author">Biljana Jonoska Stojkova, Kim Dill-McFarland, and Nikolas Krstic</h4>
+<h4 class="date">version May 29, 2020</h4>
+
+</div>
+
+
+<div id="do-you-have-all-pre-requisites" class="section level1">
+<div name="do_you_have_all_pre-requisites" data-unique="do_you_have_all_pre-requisites"></div><h1>Do you have all pre-requisites?</h1>
+<ul>
+<li><p>GitLab account</p></li>
+<li><p>Git and Bash</p></li>
+<li><p>up to date R and Rstudio</p></li>
+</ul>
+<p>If not, please follow the setup <a href="https://asda.stat.ubc.ca/Workshops/2021-05_DSSG/setup.html">instructions</a>.</p>
+</div>
+<div id="resources-on-git" class="section level1">
+<div name="resources_on_git" data-unique="resources_on_git"></div><h1>Resources on git</h1>
+<ul>
+<li><a href="https://gist.github.com/davfre/8313299">Git cheatsheet</a></li>
+<li><a href="https://git-scm.com/docs">List of all Git commands</a></li>
+<li><a href="https://git-scm.com/docs/gittutorial">Git tutorial</a></li>
+<li><a href="https://swcarpentry.github.io/shell-novice/">Working with shell materials</a></li>
+<li><a href="https://swcarpentry.github.io/git-novice/">Git materials</a></li>
+<li><a href="https://git-scm.com/book/en/v2">Git Pro EBook</a></li>
+<li><a href="https://help.github.com/">Git help</a></li>
+<li><a href="https://pages.github.com/">Build a web site from a repo!</a></li>
+<li>Explore <a href="https://github.com/pricing">private repositories</a> and <a href="https://help.github.com/articles/about-organizations/">organizations</a></li>
+<li><a href="http://r-bio.github.io/intro-git-rstudio/">Git in RStudio</a></li>
+<li><a href="https://docs.gitlab.com/ee/user/project/">GitLab documentation</a></li>
+<li><a href="https://happygitwithr.com/index.html">Happy Git and GitHub for the useR</a></li>
+<li><a href="https://docs.gitlab.com/ee/user/permissions.html">GitLab repo member roles</a></li>
+</ul>
+</div>
+<div id="learning-goals" class="section level1">
+<div name="learning_goals" data-unique="learning_goals"></div><h1>Learning goals</h1>
+<ul>
+<li><p>use Git version control tool in your projects</p></li>
+<li><p>collaborate more effectively with GitLab online service</p>
+<ul>
+<li><p>manage simultaneous/conflicting changes by various contributors</p></li>
+<li><p>use GitLab Issues for tracking TODOs and focus discussion</p></li>
+</ul></li>
+</ul>
+</div>
+<div id="git" class="section level1">
+<div name="git" data-unique="git"></div><h1>Git</h1>
+<div id="how-to-track-changes-to-your-files" class="section level2">
+<div name="how_to_track_changes_to_your_files" data-unique="how_to_track_changes_to_your_files"></div><h2>How to track changes to your files?</h2>
+<ul>
+<li><p>nothing: live in the here and now</p></li>
+<li><p>Manual version control: date-stamped directories/files</p></li>
+<li><p>Automated version control tools</p></li>
+</ul>
+</div>
+<div id="what-is-version-control" class="section level2">
+<div name="what_is_version_control" data-unique="what_is_version_control"></div><h2>What is version control?</h2>
+<p>Version control is a way of recording changes to files over time so that we can revert back to specific versions later.</p>
+<div id="manual-version-control" class="section level3">
+<div name="manual_version_control" data-unique="manual_version_control"></div><h3>Manual version control</h3>
+<p>The most common version control used would be versioned file names like <code>myFile_2019.04.27.txt</code> or <code>myFile_v1.0.txt</code>. This approach gets the job done, but it takes up a big storage space and have little information on how the versions of the files differ.</p>
+<div class="figure">
+<img src="./Version Control with Git_files/phdcomics-final.png" alt="http://www.phdcomics.com/comics/archive.php?comicid=1531">
+<p class="caption"><a href="http://www.phdcomics.com/comics/archive.php?comicid=1531" class="uri">http://www.phdcomics.com/comics/archive.php?comicid=1531</a></p>
+</div>
+</div>
+<div id="automated-version-control-via-git" class="section level3">
+<div name="automated_version_control_via_git" data-unique="automated_version_control_via_git"></div><h3>Automated version control via Git</h3>
+<p><a href="https://git-scm.com/">Git</a> is the most commonly used version control system today and is quickly becoming the standard for version control. Git is a distributed version control system. While git can track changes of any file type it is most useful to track the text-based <em>source files</em> such as <code>.txt</code>, <code>.Rmd</code>, <code>.R</code>, etc.</p>
+<p>Git saves the entire history of changes in the project</p>
+<pre><code class="hljs">- commented, time-stamped, author identified</code></pre>
+<p>Benefits of version control:</p>
+<ul>
+<li><p>easy to see what changed when, why, and by whom</p></li>
+<li><p>jump back to any point in time</p></li>
+<li><p>freedom to experiment</p>
+<ul>
+<li>try out a crazy idea</li>
+<li>can always go back to the last known good version</li>
+<li>keep working on both in parallel</li>
+</ul></li>
+<li><p>manage contributions from multiple people</p></li>
+</ul>
+</div>
+</div>
+<div id="why-use-git-and-not-fill-in-the-blank" class="section level2">
+<div name="why_use_git_and_not_fill_in_the_blank" data-unique="why_use_git_and_not_fill_in_the_blank"></div><h2>Why use Git and not <em>fill in the blank</em>?</h2>
+<ul>
+<li><p>it is very fast, even for projects with hundreds of files and years of history</p></li>
+<li><p>doesn’t require access to a server</p></li>
+<li><p>extremely popular, no strong reason to pick anything else (unless required)</p></li>
+</ul>
+</div>
+<div id="git-on-the-local-computer" class="section level2">
+<div name="git_on_the_local_computer" data-unique="git_on_the_local_computer"></div><h2>Git on the local computer</h2>
+<p>All Git functions are accessed from the command line with <code>git</code> followed by the function name, for example to initialize git the command is <code>git init</code>. The commands used in this section are summarized in the following infographic. Please refer to it as we progress through the examples.</p>
+<p><img src="./Version Control with Git_files/Git_basic.png"></p>
+<div id="initialize-a-repo-git-init" class="section level3">
+<div name="initialize_a_repo_(git_init)" data-unique="initialize_a_repo_(git_init)"></div><h3>Initialize a repo (<code>git init</code>)</h3>
+<p>First, create a directory on your computer named <code>TestRepo</code>. Then, open your terminal/GitBash, navigate to the <code>TestRepo</code> directory, and initialize it as a repo with</p>
+<pre><code class="hljs">git init</code></pre>
+<p>You should see an output similar to the following showing that Git knows this directory is a repo.</p>
+<pre><code class="hljs">Initialized empty Git repository in C:/LocalgitRepos/TestRepo/.git/
+</code></pre>
+<p>If you now list all the files in the <code>TestRepo</code> directory with <code>ls -a</code>, you will see a <code>.git</code> directory that keeps the version control of the directory <code>TestRepo</code>. Now you can add files to the directory <code>TestRepo</code> as usual, the <code>.git</code> directory will track changes of each file in the directory <code>TestRepo</code>.</p>
+</div>
+<div id="add-files-git-add" class="section level3">
+<div name="add_files_(git_add)" data-unique="add_files_(git_add)"></div><h3>Add files (<code>git add</code>)</h3>
+<p>Create a <code>README.md</code> file using a text editor of your choice and include the following as the contents of this file.</p>
+<pre><code class="hljs">This is a README for my first Git repo.</code></pre>
+<p>Now that we have added a new file, we can query if there are any differences between our local <code>TestRepo</code> directory and the version controlled repo with</p>
+<pre><code class="hljs">git status</code></pre>
+<p>The result from <code>git status</code> is telling us that the file <code>README.md</code> is in our local directory <code>TestRepo</code> that is not in the version controlled repo:</p>
+<pre><code class="hljs">$ git status
+On branch master
+
+Initial commit
+
+Untracked files:
+  (use "git add &lt;file&gt;..." to include in what will be committed)
+
+        README.md
+
+nothing added to commit but untracked files present (use "git add" to track)</code></pre>
+<p>This means that <code>README.md</code> file is untracked by git. The last line of the <code>git status</code> output instructs us to use <code>git add</code> to add the file <code>README.md</code> to the staging area of the version controlled repo.</p>
+<p>We can either add just this file by specifying the file name:</p>
+<pre><code class="hljs">git add README.md</code></pre>
+<p>Or if we have more than 1 file to add at once, we could add all with either of these commands (this also works with 1 file if you are lazy to type a single file name):</p>
+<pre><code class="hljs">git add .
+git add --all</code></pre>
+<p>If we ask again for the <code>git status</code>, it says that the file <code>README.md</code> has been staged but it is not committed to the local versoned repo:</p>
+<pre><code class="hljs">$ git status
+On branch master
+
+Initial commit
+
+Changes to be committed:
+  (use "git rm --cached &lt;file&gt;..." to unstage)
+
+        new file:   README.md</code></pre>
+</div>
+<div id="git-staging-area-index" class="section level3">
+<div name="git_staging_area_(index)" data-unique="git_staging_area_(index)"></div><h3>Git staging area (index)</h3>
+<p>If the file is tracked but not committed (<em>i.e.</em> version saved), where is it? Git has a staging area (also called the index) where a version of a file is stored prior to it being more permanently saved as a committed version.</p>
+<p>This is useful because sometimes you may want to:</p>
+<ul>
+<li>save a version as a back-up in the short-term but do not want to permanently save that version in the long-term</li>
+<li>complete many small changes separately but save them all together as 1 new version</li>
+<li>compare your current version with the last committed version without causing any conflicts in your repo</li>
+</ul>
+</div>
+<div id="commit-changes-git-commit" class="section level3">
+<div name="commit_changes_(git_commit)" data-unique="commit_changes_(git_commit)"></div><h3>Commit changes (<code>git commit</code>)</h3>
+<p>Once you have a version you want to save permanently, you need to <code>commit</code> it from the index (staging area) to the local repo.</p>
+<p>To save the changes we need to commit using <code>git commit -m 'message about this version'</code>:</p>
+<pre><code class="hljs">git commit -m 'add my README.md file'
+</code></pre>
+<p>Note: Best practice is for <code>git commit</code>to provide a message <code>-m</code>.</p>
+<p>Result from the <code>git commit</code>:</p>
+<pre><code class="hljs">$ git commit -m 'add my README.md file'
+[master (root-commit) 0105016] add my README.md file
+ 1 file changed, 1 insertion(+)
+ create mode 100644 README.md</code></pre>
+<p>if we call <code>git status</code> again we receive a message that our local directory, the staging area and the local repo are all the same.</p>
+<pre><code class="hljs">$ git status
+On branch master
+nothing to commit, working tree clean</code></pre>
+</div>
+<div id="exercise-git-add-and-commit" class="section level3">
+<div name="exercise:_git_add_and_commit" data-unique="exercise:_git_add_and_commit"></div><h3>Exercise: Git add and commit</h3>
+<ol style="list-style-type: decimal">
+<li>Change a file and commit the new version.</li>
+</ol>
+<ul>
+<li><p>Add the following to your <code>README.md</code> file, where you fill in your name.</p>
+<pre><code class="hljs"> My name is Biljana!.  </code></pre></li>
+<li><p>Using a combination of <code>git status, add, and commit</code>, determine if your local repo matches your local directory and commit the new version using an appropriate message.</p></li>
+</ul>
+<ol start="2" style="list-style-type: decimal">
+<li>Create a new file (R script or R/markdown document, and repeat the step 1 from the this exercise.</li>
+</ol>
+</div>
+</div>
+<div id="compare-versions-git-status-and-diff" class="section level2">
+<div name="compare_versions_(git_status_and_diff)" data-unique="compare_versions_(git_status_and_diff)"></div><h2>Compare versions (<code>git status</code> and <code>diff</code>)</h2>
+<p><img src="./Version Control with Git_files/Git_compare.png"></p>
+<p>Your <code>git status</code> should be up-to-date after the previous exercise.</p>
+<p>Now we will create differing versions in our local directory, index, and repo.</p>
+<p>Step 1. Add your birthday to <code>README.md</code> and <code>git add .</code> this change <em>but do not commit</em>. Step 2. Add your favorite color and <em>do not add or commit</em> this change. So, now we have versions the following versions.</p>
+<ul>
+<li>local directory: name, birthday, color</li>
+<li>index : name, birthday</li>
+<li>repo : name</li>
+</ul>
+<p>We can distinguish the versions with various parameters in <code>git diff</code>. Added lines are indicated by +, deleted lines by -, and changed lines by showing both versions inline. On my setup, the same line appears twice: once with <code>+</code> and once more with <code>-</code>. if this is the case then these lines are canceling each other.</p>
+<ul>
+<li>Check difference between local and index: <code>git diff</code>:</li>
+</ul>
+<pre><code class="hljs">diff --git a/README.md b/README.md
+index 79e65e5..6746ee5 100644
+--- a/README.md
++++ b/README.md
+@@ -1,4 +1,5 @@
+ This is a README for my first Git repo.
+
+ My name is biljana!
+-My birthday is 21 Dec!
+\ No newline at end of file
++My birthday is 21 Dec!
++My favorite color is purple!
+\ No newline at end of file</code></pre>
+<ul>
+<li>Check difference between index and repo: <code>git diff --cached HEAD</code></li>
+</ul>
+<pre><code class="hljs">diff --git a/README.md b/README.md
+index cd89365..79e65e5 100644
+--- a/README.md
++++ b/README.md
+@@ -1,3 +1,4 @@
+ This is a README for my first Git repo.
+
+-My name is biljana!
+\ No newline at end of file
++My name is biljana!
++My birthday is 21 Dec!
+\ No newline at end of file</code></pre>
+<ul>
+<li>Check difference between local directory and repo: <code>git diff HEAD</code>:</li>
+</ul>
+<pre><code class="hljs">diff --git a/README.md b/README.md
+index cd89365..6746ee5 100644
+--- a/README.md
++++ b/README.md
+@@ -1,3 +1,5 @@
+ This is a README for my first Git repo.
+
+-My name is biljana!
+\ No newline at end of file
++My name is biljana!
++My birthday is 21 Dec!
++My favorite color is purple!
+\ No newline at end of file</code></pre>
+</div>
+<div id="past-commits-git-log-and-git-show" class="section level2">
+<div name="past_commits_(git_log_and_git_show)" data-unique="past_commits_(git_log_and_git_show)"></div><h2>Past commits (<code>git log</code> and <code>git show</code>)</h2>
+<p>the last two versions of <code>git diff</code> commands were referencing to the repo as HEAD. This is the most recent commit version in the repo.</p>
+<p>Let’s <code>add and commit</code> our current changes so that we have multiple commits to look at. Since we never committed the version with only the birthday added, this version is lost with a new <code>git add</code>.</p>
+<p>We can see all past commits in this repo with</p>
+<pre><code class="hljs">git log</code></pre>
+<pre><code class="hljs">commit 6b5dee172e61bb17f0e0f5e929b7da70581595e6 (HEAD -&gt; master)
+Author: b.stojkova &lt;b.stojkova@stat.ubc.ca&gt;
+Date:   Tue Apr 23 14:01:53 2019 -0700
+
+    add my favorite color
+
+commit 7cf2d894311be32e5aed858a6c8c3b6d03818133
+Author: b.stojkova &lt;b.stojkova@stat.ubc.ca&gt;
+Date:   Tue Apr 23 13:40:26 2019 -0700
+
+    add my name to readme file
+
+commit 01050165c14f6621c5a8307c68569ccde508e86e
+Author: b.stojkova &lt;b.stojkova@stat.ubc.ca&gt;
+Date:   Tue Apr 23 13:30:25 2019 -0700
+
+    add my README.md file
+
+</code></pre>
+<p>Or view a specific past version using <code>git show HEAD~##</code>. For example, we can view our first commit which is <code>git show HEAD~2</code></p>
+<pre><code class="hljs">git show HEAD~2</code></pre>
+<pre><code class="hljs">commit 01050165c14f6621c5a8307c68569ccde508e86e
+Author: b.stojkova &lt;b.stojkova@stat.ubc.ca&gt;
+Date:   Tue Apr 23 13:30:25 2019 -0700
+
+    add my README.md file
+
+diff --git a/README.md b/README.md
+new file mode 100644
+index 0000000..6397e44
+--- /dev/null
++++ b/README.md
+@@ -0,0 +1 @@
++This is a README for my first Git repo.
+\ No newline at end of file
+</code></pre>
+</div>
+</div>
+<div id="upload-the-local-repo-to-a-web-repo-on-gitlab" class="section level1">
+<div name="upload_the_local_repo_to_a_web_repo_on_gitlab" data-unique="upload_the_local_repo_to_a_web_repo_on_gitlab"></div><h1>Upload the local repo to a web repo on GitLab</h1>
+<p><a href="https://gitlab.math.ubc.ca/">GitLab</a> is a web service for hosting Git repositories - content and version history. It has web and GUI interfaces as well as many tools for facilitating collaboration within repos.</p>
+<p>GitLab has all the feature from gitHub, so once you learn one of them the knowledge and skills are easily transferable. GitHub servers are outside Canada, but GitLab servers are here at UBC, so you can host both private and public repos. The login to GitLab is not connected to the CWL account, so graduate students can still use GitLab even after graduating from UBC.</p>
+<p><img src="./Version Control with Git_files/GitLab.png"></p>
+<div id="gitlab-via-command-line" class="section level2">
+<div name="gitlab_via_command_line" data-unique="gitlab_via_command_line"></div><h2>GitLab via command line</h2>
+<p>Prior to this workshop, you should have signed-up for a free GitLab account. Now we are going to link your computer to your GitLab account.</p>
+<div id="make-an-online-repo" class="section level3">
+<div name="make_an_online_repo" data-unique="make_an_online_repo"></div><h3>Make an online repo</h3>
+<p>Next we will make an online GitLab repo. In a browser, navigate to your <a href="https://gitlab.com/">GitLab</a> account homepage and click “New repository”.</p>
+<p><img src="./Version Control with Git_files/new_repo.png" style="width:50.0%"></p>
+<p>Name the repo <code>TestRepo</code> and create it. GitHub then gives you the URL for this repo.</p>
+<p><img src="./Version Control with Git_files/repoURL.png"></p>
+</div>
+<div id="configure-your-computer-git-config" class="section level3">
+<div name="configure_your_computer_(git_config)" data-unique="configure_your_computer_(git_config)"></div><h3>Configure your computer (<code>git config</code>)</h3>
+<p>Take a look at the <code>Command line instructions</code> section on your newly created repo on GitLab. The <code>Git global setup</code> gives you instructions on your identification. You can copy and paste the first two lines to the Git Bash/Terminal to tell git who you are:</p>
+<p><img src="./Version Control with Git_files/new_repo_cmd.png"></p>
+<pre><code class="hljs">git config --global user.name "Your Name"
+
+git config --global user.email "youremail@email.com"</code></pre>
+<p>We will skip the code under <code>Create a new repository</code> because we already have and existing local repository.</p>
+</div>
+<div id="link-local-and-online-repo-git-remote" class="section level3">
+<div name="link_local_and_online_repo_(git_remote)" data-unique="link_local_and_online_repo_(git_remote)"></div><h3>Link local and online repo (<code>git remote</code>)</h3>
+<p>From the <code>Existing Folder</code> section we only need to connect our local repo (<code>TestRepo</code>) to the remote repo (<code>TestRepo</code>) by using <code>git remote add origin</code>your specific repo URL`<code>. So we only use the following line from the</code>Existing Folder` section.</p>
+<pre><code class="hljs">git remote add origin `your specific repo URL`</code></pre>
+<p>To check if you are connected to the right web repo:</p>
+<pre><code class="hljs">git config --get remote.origin.url </code></pre>
+</div>
+<div id="update-an-online-repo-git-push" class="section level3">
+<div name="update_an_online_repo_(git_push)" data-unique="update_an_online_repo_(git_push)"></div><h3>Update an online repo (<code>git push</code>)</h3>
+<p>This is the last line from the <code>Existing Folder</code> section <code>git push -u origin master</code>. We can skip other lines because our local repo is ready to be uploaded to the web repo.</p>
+<pre><code class="hljs">git push origin master</code></pre>
+<p>A dialogue asking you to enter your login email and password for your GitLab account will pop up.</p>
+<pre><code class="hljs">Counting objects: 19, done.
+Delta compression using up to 4 threads.
+Compressing objects: 100% (12/12), done.
+Writing objects: 100% (19/19), 1.59 KiB | 0 bytes/s, done.
+Total 19 (delta 5), reused 0 (delta 0)
+To https://gitlab.math.ubc.ca/BiljanaJS/testrepo.git
+ * [new branch]      master -&gt; master
+
+</code></pre>
+<p>All subsequent push commands for this repo can simply be</p>
+<pre><code class="hljs">git push</code></pre>
+<p>If you go back to your browser and refresh your page, you should now see <code>README.md</code> in your online repo.</p>
+<p>Once your local repo is fully linked with its online GitLab repo, you can go about version control as you normally would (change files &gt; add &gt; commit). When you have a committed version of the repo that you want to backup or share to GitLab, you <code>git push</code>.</p>
+</div>
+</div>
+</div>
+<div id="gitlab-gui" class="section level1">
+<div name="gitlab_gui" data-unique="gitlab_gui"></div><h1>GitLab GUI</h1>
+<p>After all this command line work, we now reveal to you that you can use Git in <a href="https://desktop.github.com/">GUI form</a>. While the GUI is useful for simple <code>commit, push, pull</code> activities, some functions (like hard resets, undos, etc.) are still only available via command line.</p>
+<p>You can explore all the repos on your computer,</p>
+<p><img src="./Version Control with Git_files/GitHubGUI1.png" style="width:50.0%"></p>
+<p>see specific changes to text based files,</p>
+<p><img src="./Version Control with Git_files/GitHubGUI2.png"></p>
+<p>and add, commit, push from the GUI.</p>
+</div>
+<div id="git-in-rstudio" class="section level1">
+<div name="git_in_rstudio" data-unique="git_in_rstudio"></div><h1>Git in RStudio</h1>
+<p>Working in an R project in a directory that is also a Git repo will reveal a Git tab in the upper right quadrant of RStudio.</p>
+<p>To see this, close and then move your workshop project directory into your <code>TestRepo</code>. Re-open the project (from <code>.Rproj</code>) and navigate to this Git tab.</p>
+<p>You will see that similar to the GitHub GUI you can see <code>diff</code> and <code>commit</code> changes directly from RStudio as well as see a summary (M: modify, D: delete, ?: add) of changes in the project since your last commit.</p>
+<p><img src="./Version Control with Git_files/RStudio_Git.png" style="width:75.0%"></p>
+</div>
+<div id="branches-git-checkout--b" class="section level1">
+<div name="branches_(git_checkout_-b)" data-unique="branches_(git_checkout_-b)"></div><h1>Branches (<code>git checkout -b</code>)</h1>
+<p><img src="./Version Control with Git_files/Git_branch.png"></p>
+<p>In many of the previous outputs we observed that we do our changes <code>On branch master</code>. This the main branch on <code>git</code>. If you need to make changes in the code, but do not want to mess up the already working code on the <code>master</code> branch, then you can generate a new branch, which is just a copy of the <code>master</code> branch and do all the changes (with tracking) on the new branch. Once you are confident the code is working you can merge the <code>branch</code> with the <code>master</code> branch.</p>
+<p>Branches are particularly useful to:</p>
+<ul>
+<li>test new features without breaking the current working code</li>
+<li>collaborate in parallel</li>
+<li>follow a risky idea that has the potential to break your working code</li>
+</ul>
+<p>Before we start a new branch we have to make sure that all the all the changes in the local directory are up- to- date. Then we can create a new branch:</p>
+<pre><code class="hljs">git checkout -b proposed-fixes master</code></pre>
+<pre><code class="hljs">Switched to a new branch 'proposed-fixes'</code></pre>
+<p>We are already in the new branch.</p>
+<p>Now we can make changes and track them with git on the <code>proposed-fixes</code> branch, without affecting the working code on the <code>master</code> (main) branch.</p>
+<p>We can check the <code>git status</code> to see if there are unstaged changes on the new branch.</p>
+<pre><code class="hljs">git status
+</code></pre>
+<pre><code class="hljs">On branch proposed-fixes
+nothing to commit, working tree clean
+</code></pre>
+<p>Now we can start making changes to the new branch. Change the <code>README.md</code> file by picking up a new favorite color, the use <code>git status, add and commit</code> to save the changes permanently to the branch <code>proposed-fixes</code>.</p>
+<pre><code class="hljs">git status
+</code></pre>
+<pre><code class="hljs">On branch proposed-fixes
+Changes not staged for commit:
+  (use "git add &lt;file&gt;..." to update what will be committed)
+  (use "git checkout -- &lt;file&gt;..." to discard changes in working directory)
+
+        modified:   README.md
+
+no changes added to commit (use "git add" and/or "git commit -a")</code></pre>
+<pre><code class="hljs"> git add .</code></pre>
+<pre><code class="hljs">git commit -m 'change favorite color in readme file'</code></pre>
+<pre><code class="hljs">[proposed-fixes ccdc7e9] change favorite color in readme file
+ 1 file changed, 2 insertions(+), 1 deletion(-)</code></pre>
+<p>So now we have changed the readme file on the <code>proposed_fixes</code> branch, but not on the <code>master</code> branch. to verify this:</p>
+<ol style="list-style-type: decimal">
+<li>Go back to the master branch <code>git checkout master</code></li>
+<li>Open the <code>README.md</code> file and make sure that the favorite color is back to the version before you changed it!</li>
+</ol>
+</div>
+<div id="merging-git-merge" class="section level1">
+<div name="merging_(git_merge)" data-unique="merging_(git_merge)"></div><h1>Merging (<code>git merge</code>)</h1>
+<p>Once we are confident that the code on the <code>proposed_fixes</code> branch is working properly, we can <code>merge</code> it with the <code>master</code> branch using <code>git merge</code>. To merge the <code>proposed_fixes</code> branch with the <code>master</code> branch we need to be switched on the <code>master</code> branch:</p>
+<ol style="list-style-type: decimal">
+<li>Go back to the master branch <code>git checkout master</code></li>
+<li>Merge the new branch <code>git merge proposed_fixes</code> which overwrites the older master branch with our new changes in the <code>proposed_fixes</code>.</li>
+</ol>
+<p>Note: Open the <code>README.md</code> file to make sure that your favorite color is back to the color changed on the <code>proposed_fixes</code> branch.</p>
+<p><strong>END OF DAY ONE</strong></p>
+<div id="merging-conflicts" class="section level2">
+<div name="merging_conflicts" data-unique="merging_conflicts"></div><h2>Merging conflicts</h2>
+<p>Merging works smoothly if only the new branch being merged has been altered since it branched off. If both the new branch and the <code>master</code> are changed, there will be a conflict.</p>
+<p>The conflicts of merging can be resolved manually, by editing the files and saving the new, correct merged version with <code>add and commit</code>.</p>
+<div id="exercise-branches-and-conflicts." class="section level3">
+<div name="exercise:_branches_and_conflicts" data-unique="exercise:_branches_and_conflicts"></div><h3>Exercise: branches and conflicts.</h3>
+<ol style="list-style-type: decimal">
+<li>Create a <code>proposed_changes</code>.</li>
+<li>Edit <code>README.md</code> in <code>proposed_changes</code> by adding your last name. Add and commit to this branch.</li>
+<li>Edit <code>README.md</code> in master by removing your name. Add and commit to this branch.</li>
+<li>Merge master and <code>proposed_changes</code>.</li>
+</ol>
+<p>(you should see the output in the Git bash/terminal that says <code>CONFLICT</code>:</p>
+<pre><code class="hljs">Auto-merging README.md
+CONFLICT (content): Merge conflict in README.md
+Automatic merge failed; fix conflicts and then commit the result.
+</code></pre>
+<p>)</p>
+<ol start="5" style="list-style-type: decimal">
+<li>Resolve the conflict: Open <code>README.md</code> and look for markers <code>&lt;&lt;&lt;&lt;&lt;&lt;</code>, <code>=======</code>, and <code>&gt;&gt;&gt;&gt;&gt;&gt;</code> to denote conflicts.</li>
+<li>Edit to your name of choice, making sure to remove the markers.</li>
+<li>Add and commit to master.</li>
+</ol>
+<p>Conflict solved!</p>
+</div>
+</div>
+</div>
+<div id="undoing-changes-git-revert" class="section level1">
+<div name="undoing_changes_(git_revert)" data-unique="undoing_changes_(git_revert)"></div><h1>Undoing changes (<code>git revert</code>)</h1>
+<p>If you change change your mind about your edits or accidentally delete a file you can undo the changes using <code>git revert</code>.</p>
+<p>Let’s mimic a mistaken commit so that we can revert it back. Please make sure that everything is up-to-date on the <code>master</code> branch. <code>git log --oneline</code> will return a list of all our previous commits:</p>
+<pre><code class="hljs">49a7a1a (HEAD -&gt; master, origin/master) solve merging conflict
+51fe9e0 remove my name from the readme file
+c93d25b (proposed_changes) add my last name to the readme file
+ccdc7e9 (proposed-fixes) change favorite color in readme file
+6b5dee1 add my favorite color
+7cf2d89 add my name to readme file
+0105016 add my README.md file</code></pre>
+<p>Last commit is denoted by <code>HEAD</code>. Now let’s change our <code>readme.md</code> file such that we change the name or our favorite color. Then <code>git status, add and commit</code> <code>git log --oneline</code> again will show that <code>HEAD</code> commit is our last commit, which saves last changes to our <code>README.md</code> file.</p>
+<pre><code class="hljs">57e094d (HEAD -&gt; master) add my second last name
+49a7a1a (origin/master) solve merging conflict
+51fe9e0 remove my name from the readme file
+c93d25b (proposed_changes) add my last name to the readme file
+ccdc7e9 (proposed-fixes) change favorite color in readme file
+6b5dee1 add my favorite color
+7cf2d89 add my name to readme file
+0105016 add my README.md file
+</code></pre>
+<p>Now we can revert back the last change, so that the <code>HEAD</code> will move to the reverted version. <code>git revert HEAD --no-edit</code> will revert the <code>HEAD</code> without starting the commit message editor, i.e., the commit message will be by default Revert <code>you last commit message</code>:</p>
+<pre><code class="hljs">9df4431 (HEAD -&gt; master) Revert "add my second last name"
+57e094d add my second last name
+49a7a1a (origin/master) solve merging conflict
+51fe9e0 remove my name from the readme file
+c93d25b (proposed_changes) add my last name to the readme file
+ccdc7e9 (proposed-fixes) change favorite color in readme file
+6b5dee1 add my favorite color
+7cf2d89 add my name to readme file
+0105016 add my README.md file</code></pre>
+<p>Note that the <code>README.md</code> file is back to the version before the unwanted commit. Also, note that git keeps log of the revert commit too.</p>
+</div>
+<div id="collaborate-with-gitlab" class="section level1">
+<div name="collaborate_with_gitlab" data-unique="collaborate_with_gitlab"></div><h1>Collaborate with GitLab</h1>
+<p>GitLab allows to access your repos from multiple computers. Furthermore, GitLab allows for collaboration between multiple users.</p>
+<div id="copy-an-online-repo-git-clone" class="section level2">
+<div name="copy_an_online_repo_(git_clone)" data-unique="copy_an_online_repo_(git_clone)"></div><h2>Copy an online repo (<code>git clone</code>)</h2>
+<p>If you are the only one working on your repo and only work on it from 1 computer, then GitLab acts as a one-way street. You push things there for storage, sharing, etc. and should only need to pull them back down if something terrible happens to your computer.</p>
+<p>However, GitLab also allows work on a repo from multiple computers and by multiple different users. You or others can copy an online GitLab repo to your computer by cloning:</p>
+<pre><code class="hljs">git clone URL.of.the.repo</code></pre>
+</div>
+<div id="update-from-the-online-repo-git-fetch-and-pull" class="section level2">
+<div name="update_from_the_online_repo_(git_fetch_and_pull)" data-unique="update_from_the_online_repo_(git_fetch_and_pull)"></div><h2>Update from the online repo (<code>git fetch</code> and <code>pull</code>)</h2>
+<p>Now when you have multiple copies of a repo potentially being worked on and <code>push</code>ed to GitLab from multiple computers or people, the version on GitLab may be more up-to-date than the one you have on the computer you happen to currently be working on.</p>
+<p>To update your local repo from GitLab, you must go through a staging area (index) similar to the one in-between your local directory and repo. You can place GitLab content in this index with</p>
+<pre><code class="hljs">git fetch</code></pre>
+<p>And use <code>git status</code> to compare your local and GitLab versions. Then, if you decide you want to update your local version, you reverse push with</p>
+<pre><code class="hljs">git pull</code></pre>
+<div id="exercise-multiple-repo-users" class="section level3">
+<div name="exercise:_multiple_repo_users" data-unique="exercise:_multiple_repo_users"></div><h3>Exercise: multiple repo users</h3>
+<p>In pairs:</p>
+<ol style="list-style-type: decimal">
+<li><p>UserA: Use <code>git clone</code> to copy the <code>TestRepo</code> UserB.</p></li>
+<li><p>UserB: Make a change to <code>README.md</code> in your repo and <code>push</code> that change to GitLab.</p></li>
+<li><p>UserA: Update your copy of UserB’s repo.</p></li>
+<li><p>Switch roles!</p></li>
+</ol>
+</div>
+</div>
+<div id="collaborate-on-a-project-through-branching" class="section level2">
+<div name="collaborate_on_a_project_through_branching" data-unique="collaborate_on_a_project_through_branching"></div><h2>Collaborate on a project through branching</h2>
+<ul>
+<li><p>Branches work when you have direct push access to the repo to which you are contributing</p></li>
+<li><p>Branches allow you to have different commit histories in the same repo</p></li>
+<li><p>Useful for feature work</p></li>
+</ul>
+<p><img src="./Version Control with Git_files/Git_branch_flw.png"></p>
+<p><img src="./Version Control with Git_files/Git_branch_merge.png" style="width:60.0%"></p>
+<div id="exercise" class="section level3">
+<div name="exercise:" data-unique="exercise:"></div><h3>Exercise:</h3>
+<!-- https://uoftcoders.github.io/studyGroup/lessons/git/collaboration/lesson/ -->
+<!-- https://gist.github.com/adamloving/5690951 -->
+<p>In pairs:</p>
+<ol style="list-style-type: decimal">
+<li><p>User B:</p>
+<ul>
+<li><p>create a new repo on <code>https://gitlab.math.ubc.ca/userB</code> named <code>TestRepo_branching</code>. This is empty repo so now we have to add files to it. We can transfer file(s) the previous <code>TestRepo</code>:</p></li>
+<li><p>Clone the new repo to your local computer <code>git clone https://gitlab.math.ubc.ca/userB/TestRepo_branching</code></p></li>
+<li><p>Go to the cloned folder</p>
+<pre><code class="hljs">cd TestRepo_branching
+</code></pre></li>
+<li><p>Copy and paste the <code>README.md</code> file from the <code>TestRepo</code></p></li>
+<li><p>Git status, add, commit and push to the new repo <code>https://gitlab.math.ubc.ca/userB/TestRepo_branching</code></p></li>
+</ul></li>
+<li><p>User A:</p>
+<ul>
+<li><p>Clone the UserB repo <code>git clone https://gitlab.math.ubc.ca/userB/TestRepo_branching</code></p></li>
+<li><p>Go to the cloned folder</p>
+<pre><code class="hljs">cd TestRepo_branching</code></pre></li>
+<li><p>Fetch the changes from User B:</p>
+<pre><code class="hljs">git fetch TestRepo_branching</code></pre></li>
+<li><p>Create e new branch</p>
+<pre><code class="hljs">git checkout -b branchUserA</code></pre></li>
+<li><p>Modify code then add and commit</p>
+<pre><code class="hljs">git add .
+git commit -m “my feature is this"</code></pre></li>
+<li><p>Then fetch changes from master since we branched, and re-apply changes on top</p>
+<pre><code class="hljs">git fetch
+git rebase master</code></pre></li>
+<li><p>push <code>branchUserA</code> back to the GitLab</p>
+<pre><code class="hljs"> git push origin branchUserA</code></pre></li>
+</ul></li>
+</ol>
+<p>At this point, if you want to, you can send a Merge Request to the UserB. With this <code>Merge request</code> you can specify which branch should be merged to the master branch of the User B repo. User B will be notified that you are happy with the changes in the code on your branch <code>branchUserA</code> so that it can start reviewing the changes and eventually these changes will be merged into the User B repo master branch.</p>
+<ol start="2" style="list-style-type: decimal">
+<li><p>User B (assuming there is no merge request)</p>
+<ul>
+<li><p>Assume you are already in your cloned repo, fetch the changes from the master branch:</p>
+<pre><code class="hljs">git fetch</code></pre></li>
+<li><p>List branches:</p>
+<pre><code class="hljs">git branch -a</code></pre></li>
+<li><p>Bring the User’s A branch <code>branchUserA</code> locally</p>
+<pre><code class="hljs">git branch --track branchUserA origin/branchUserA</code></pre></li>
+<li><p>Checkout to the branch <code>branchUserA</code> to review the changes and decide if the changes are ready to be merged to the <code>master</code>:</p>
+<pre><code class="hljs">git checkout branchUserA</code></pre></li>
+<li><p>Merge your local branch <code>branchUserA</code> into your <code>master</code> branch</p></li>
+</ul>
+<pre><code class="hljs">git checkout master
+git merge branchUserA</code></pre>
+<ul>
+<li><p>Resolve conflicts if there are any and then add, commit and push to the master</p></li>
+<li><p>Delete branch (and remote branch) when done</p>
+<pre><code class="hljs">```
+  git branch -d branchUserA
+  git push origin :branchUserA
+  ```</code></pre></li>
+</ul></li>
+<li><p>Switch roles!</p></li>
+</ol>
+</div>
+</div>
+<div id="collaborate-on-a-project-through-forking" class="section level2">
+<div name="collaborate_on_a_project_through_forking" data-unique="collaborate_on_a_project_through_forking"></div><h2>Collaborate on a project through forking</h2>
+<ul>
+<li><p>Forking can be used when you don’t have direct push access to a repo. Hence, all the push history will be tracked on your local forked repo, rather than on the original repo</p></li>
+<li><p>Fork button: creates your own version of the repo that you can push to</p></li>
+<li><p>When you’re finished committing all of your changes, you can create a merge request</p></li>
+<li><p>Merge Request: tells the main repo that you have some commits you would like to merge, and allows other members of the project to review and discuss</p></li>
+</ul>
+<p><img src="./Version Control with Git_files/Git_forking_flw.png"></p>
+<p><img src="./Version Control with Git_files/Git_fork_merge.png"></p>
+<div id="exercise-1" class="section level3">
+<div name="exercise:38" data-unique="exercise:38"></div><h3>Exercise:</h3>
+<p>In pairs:</p>
+<ol style="list-style-type: decimal">
+<li><p>User B:</p>
+<ul>
+<li><p>create a new repo on <code>https://gitlab.math.ubc.ca/userB</code> named <code>TestRepo_fork</code>. This is empty repo so now we have to add files to it. We can transfer file(s) the previous <code>TestRepo</code>:</p></li>
+<li><p>Clone the new repo to your local computer</p>
+<pre><code class="hljs">git clone https://gitlab.math.ubc.ca/userB/TestRepo_fork</code></pre></li>
+<li><p>Go to the cloned folder</p>
+<pre><code class="hljs">cd TestRepo_fork</code></pre></li>
+<li><p>Copy and paste the <code>README.md</code> file from the <code>TestRepo</code></p></li>
+<li><p>git status, add, commit and push to the new repo</p>
+<pre><code class="hljs">https://gitlab.math.ubc.ca/userB/TestRepo_fork</code></pre></li>
+</ul></li>
+<li><p>User A</p>
+<ul>
+<li><p>Go to the User B repo on GitLab <code>https://gitlab.math.ubc.ca/userB/TestRepo_fork</code> and click on <code>Fork</code> button. This will create a copy of the UserB repo under your projects <code>userA/TestRepo_fork</code>. This assumes that you do not have push access to the <code>userB/TestRepo_fork</code> repo. So now you can use your copy <code>userA/TestRepo_fork</code> to make changes and push the changes back to your copy of the repo, i.e., <code>userA/TestRepo_fork</code>:</p></li>
+<li><p>Clone your copy of the <code>userA/TestRepo_fork</code> repo</p>
+<pre><code class="hljs">git clone https://gitlab.math.ubc.ca/userA/TestRepo_fork</code></pre></li>
+<li><p>Go to the cloned folder</p>
+<pre><code class="hljs">cd TestRepo_fork</code></pre></li>
+<li><p>Create a new branch</p>
+<pre><code class="hljs">git checkout -b branchUserA</code></pre></li>
+<li><p>Change the <code>README.md</code> file and then add, commit and push to the branch <code>branchUserA</code></p>
+<pre><code class="hljs">git push origin branchUserA</code></pre></li>
+<li><p>Send a merge request from <code>UserA/testRepo_fork</code> branch <code>branchUserA</code> to <code>UserB/testRepo_fork</code> branch<br>
+<code>master</code>.</p></li>
+</ul></li>
+<li><p>User B: Accept the Merge Request</p></li>
+</ol>
+<ul>
+<li><p>In cases where the merge would be a simple fast-forward, you can automatically do the merge by just clicking the button on the merge request page on GitLab.</p></li>
+<li><p>To do the merge manually, you’ll need to checkout the target branch in the source repo, pull directly from the fork, and then merge and push.</p>
+<ul>
+<li>Clone the original web repo</li>
+</ul>
+<pre><code class="hljs">git clone https://gitlab.math.ubc.ca/userB/TestRepo_fork </code></pre>
+<ul>
+<li>Checkout the branch you’re merging to in the target repo</li>
+</ul>
+<pre><code class="hljs">git checkout master</code></pre>
+<ul>
+<li>Pull the development branch from the fork repo where the pull request development was done.</li>
+</ul>
+<pre><code class="hljs">git pull https://gitlab.math.ubc.ca/UserA/testRepo_fork.git branchUserA</code></pre>
+<ul>
+<li>Merge the development branch</li>
+</ul>
+<pre><code class="hljs">git merge branchUserA</code></pre>
+<ul>
+<li>Push master with the new feature merged into it</li>
+</ul>
+<pre><code class="hljs">git push origin master      </code></pre></li>
+</ul>
+<ol start="3" style="list-style-type: decimal">
+<li>Switch roles!</li>
+</ol>
+</div>
+</div>
+<div id="more-on-forking" class="section level2">
+<div name="more_on_forking" data-unique="more_on_forking"></div><h2>More on forking</h2>
+<div id="checking-out-and-testing-pull-requests" class="section level3">
+<div name="checking_out_and_testing_pull_requests" data-unique="checking_out_and_testing_pull_requests"></div><h3>Checking Out and Testing Pull Requests</h3>
+<p>Before you accept the Merge request, the changes on the forked branch need to be reviewed.</p>
+<ul>
+<li>Fetch and checkout any pull request so that you can test them:</li>
+</ul>
+<pre><code class="hljs">git fetch origin pull/Merge-REQUEST_NUMBER/head:pr-Merge-REQUEST_NUMBER</code></pre>
+<p>Note: <code>origin</code> might need to be replaced with <code>upstream</code>. <code>Merge-REQUEST_NUMBER</code> can be found on the GitLab interface (every merge request has its own number), <code>pr-Merge-REQUEST_NUMBER</code> is the name of the the local branch into which you would like the specified pull request to be fetched (you can give any name here).</p>
+<ul>
+<li>Checkout the local branch and start reviewing the new code:</li>
+</ul>
+<pre><code class="hljs">git checkout pr-Merge-REQUEST_NUMBER</code></pre>
+</div>
+<div id="keeping-the-fork-up-to-date" class="section level3">
+<div name="keeping_the_fork_up_to_date" data-unique="keeping_the_fork_up_to_date"></div><h3>Keeping the Fork Up to Date</h3>
+<p>This is useful step if you use your forked repo for long-term changes rather than one-time quick fix.</p>
+<ul>
+<li>Add a remote <code>upstream</code> repo (this will be the name of the original web repo):</li>
+</ul>
+<pre><code class="hljs">git remote add upstream https://gitlab.math.ubc.ca/OriginalRepo_USER/ORIGINAL-PROJECT.git</code></pre>
+<ul>
+<li>Verify the new remote named ‘upstream’</li>
+</ul>
+<pre><code class="hljs">git remote -v</code></pre>
+<ul>
+<li>Whenever there is a need to update the fork with the latest upstream (original web repo) changes, fetch the upstream repo’s branches and latest commits to bring them into your repository:</li>
+</ul>
+<pre><code class="hljs">git fetch upstream</code></pre>
+<ul>
+<li>View all branches, including those from upstream</li>
+</ul>
+<pre><code class="hljs">git branch -va</code></pre>
+<ul>
+<li>Checkout your own master branch and merge the upstream repo’s master branch:</li>
+</ul>
+<pre><code class="hljs">git checkout master
+git merge upstream/master</code></pre>
+</div>
+</div>
+</div>
+
+
+
+<div class="tocify-extend-page" data-unique="tocify-extend-page" style="height: 115.234px;"></div></div>
+</div>
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.header').parent('thead').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- tabsets -->
+
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+
+$(document).ready(function () {
+  $('.tabset-dropdown > .nav-tabs > li').click(function () {
+    $(this).parent().toggleClass('nav-tabs-open')
+  });
+});
+</script>
+
+<!-- code folding -->
+
+<script>
+$(document).ready(function ()  {
+
+    // move toc-ignore selectors from section div to header
+    $('div.section.toc-ignore')
+        .removeClass('toc-ignore')
+        .children('h1,h2,h3,h4,h5').addClass('toc-ignore');
+
+    // establish options
+    var options = {
+      selectors: "h1,h2,h3",
+      theme: "bootstrap3",
+      context: '.toc-content',
+      hashGenerator: function (text) {
+        return text.replace(/[.\\/?&!#<>]/g, '').replace(/\s/g, '_').toLowerCase();
+      },
+      ignoreSelector: ".toc-ignore",
+      scrollTo: 0
+    };
+    options.showAndHide = false;
+    options.smoothScroll = true;
+
+    // tocify
+    var toc = $("#TOC").tocify(options).data("toc-tocify");
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+
+
+</body></html>
