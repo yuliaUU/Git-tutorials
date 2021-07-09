@@ -16,6 +16,7 @@
 * [Try Git](http://try.github.com/)
 
 - 🔥[Katacoda Git](https://www.katacoda.com/courses/git). Nice one so you can practice steps on "virtual computer" and not destroy anything on your own pc. great explanations, also has hints . 
+- [this one](https://play.instruqt.com/instruqt/tracks/create-and-clone-a-git-repository) seems free and quite easy. I just tried a couple of first topics and it was quite nice
 - [GIt Cheatsheets](https://training.github.com/downloads/github-git-cheat-sheet.pdf)
 - **Highly recommned** this [Life tutorial](https://learngitbranching.js.org/)
 - explore git in a dmeo: [Free Explore](http://git-school.github.io/visualizing-git/#upstream-changes)
