@@ -1,11 +1,11 @@
-# Learn Git
+# Learn Git 🔥
 
 
 ## Usefull ressources
 
 1. [Atlassian Bitbucket](https://www.atlassian.com/git/tutorials)
 2. [Articles & Explanations](https://www.atlassian.com/git/tutorials/using-branches/git-checkout#:~:text=The%20git%20checkout%20command%20lets,new%20commits%20on%20that%20branch.)
-3. [Happy Git & GitHub for teh useR](https://happygitwithr.com/shell.html)
+3. [Happy Git & GitHub for the useR](https://happygitwithr.com/shell.html)
 
 ## A bunch of good git tutorials
 
@@ -15,6 +15,7 @@
 
 * [Try Git](http://try.github.com/)
 
+- 🔥[Katacoda Git](https://www.katacoda.com/courses/git). Nice one so you can practice steps on "virtual computer" and not destroy anything on your own pc. great explanations, also has hints . 
 - [GIt Cheatsheets](https://training.github.com/downloads/github-git-cheat-sheet.pdf)
 - **Highly recommned** this [Life tutorial](https://learngitbranching.js.org/)
 - explore git in a dmeo: [Free Explore](http://git-school.github.io/visualizing-git/#upstream-changes)
